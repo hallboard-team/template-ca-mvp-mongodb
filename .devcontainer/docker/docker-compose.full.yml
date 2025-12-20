@@ -66,12 +66,17 @@ services:
       retries: 30
 
   mongo-tools:
-    profiles: ["tools"]
     image: *mongo_image
     container_name: ${CONTAINER_NAME:-template}_tools_MONGO-v${MONGO_VERSION:-7.0}
     depends_on:
       mongo:
         condition: service_healthy
+    working_dir: /workspaces/app
+    volumes:
+      - ../../:/workspaces/app:Z
+      - ${HOME}/.cache/vscode-server-shared:/home/vscode/.vscode-server-shared:Z
+    environment:
+      VSCODE_SERVER_DIR: /home/vscode/.vscode-server-shared
     entrypoint: ["bash", "-lc", "sleep infinity"]
 
 volumes:

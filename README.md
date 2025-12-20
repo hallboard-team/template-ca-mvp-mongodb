@@ -35,6 +35,9 @@ dotnet test backend/tests
 npm install && npm start --prefix frontend
 ```
 
+### VS Code Mongo Tools Dev Container
+If you only need MongoDB tools (`mongosh`, replica set setup, etc.), open the alternative devcontainer at `.devcontainer/mongo/devcontainer.json`. It attaches to the `mongo-tools` service (with the workspace mounted) and keeps `mongo` running in the background.
+
 ### Standalone Docker Compose Runner
 If you prefer running outside VS Code, use the helper script:
 ```bash

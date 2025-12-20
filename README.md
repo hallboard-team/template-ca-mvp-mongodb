@@ -38,6 +38,8 @@ npm install && npm start --prefix frontend
 ### VS Code Mongo Tools Dev Container
 If you only need MongoDB tools (`mongosh`, replica set setup, etc.), open the alternative devcontainer at `.devcontainer/mongo/devcontainer.json`. It attaches to the `mongo-tools` service (with the workspace mounted) and keeps `mongo` running in the background.
 
+Replica set note: the MongoDB container starts with auth enabled and `--replSet rs0`. A keyfile is generated on first run at `/data/db/mongo-keyfile` inside the MongoDB volume.
+
 ### Standalone Docker Compose Runner
 If you prefer running outside VS Code, use the helper script:
 ```bash

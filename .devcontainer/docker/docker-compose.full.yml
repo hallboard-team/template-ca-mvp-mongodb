@@ -40,6 +40,18 @@ services:
     image: *mongo_image
     container_name: ${CONTAINER_NAME:-template}_db_MONGO-v${MONGO_VERSION:-7.0}
     working_dir: /workspaces/app
+    user: "0:0"
+    command:
+      - bash
+      - -c
+      - |
+          set -e
+          if [ ! -f /data/db/mongo-keyfile ]; then
+            head -c 32 /dev/urandom | base64 > /data/db/mongo-keyfile
+          fi
+          chmod 600 /data/db/mongo-keyfile
+          chown 999:999 /data/db/mongo-keyfile
+          exec mongod --replSet rs0 --bind_ip_all --keyFile /data/db/mongo-keyfile
 
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER:-backend_mongo_user}

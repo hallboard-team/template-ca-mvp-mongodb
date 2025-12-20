@@ -1,9 +1,11 @@
 version: "3.9"
 
+x-mongo-image: &mongo_image "${MONGO_IMAGE:-ghcr.io/hallboard-team/tools:mongo-${MONGO_VERSION:-7.0}}"
+
 services:
   dev-full:
-    image: ghcr.io/hallboard-team/fullstack-dev:dotnet${DOTNET_VERSION:-10}-node${NODE_VERSION:-24}-ng${ANGULAR_VERSION:-21}
-    container_name: ${CONTAINER_NAME:-template-mvp}_dev-full
+    image: ghcr.io/hallboard-team/fullstack-dev:dotnet${DOTNET_VERSION:-10.0}-node${NODE_VERSION:-24}-ng${ANGULAR_VERSION:-21}
+    container_name: ${CONTAINER_NAME:-template}_dev-full
 
     user: "0:0"
     working_dir: /workspaces/app
@@ -16,19 +18,14 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       VSCODE_SERVER_DIR: /home/vscode/.vscode-server-shared
 
-      ConnectionStrings__Default: >
-        Host=db;Port=5432;
-        Database=${DB_NAME:-backend_postgres_db};
-        Username=${DB_USER:-backend_postgres_user};
-        Password=${DB_PASSWORD:-backend_postgres_password};
-        Include Error Detail=true
+      ConnectionStrings__Default: "mongodb://${DB_USER:-backend_mongo_user}:${DB_PASSWORD:-backend_mongo_password}@mongo:27017/${DB_NAME:-backend_mongo_db}?authSource=admin&retryWrites=true"
 
     ports:
       - "${API_PORT:-5002}:5002"      # .NET API
       - "${FRONTEND_PORT:-4202}:4202" # Angular dev server
 
     depends_on:
-      db:
+      mongo:
         condition: service_healthy
 
     command: >
@@ -39,30 +36,43 @@ services:
         sleep infinity
       "
 
-  db:
-    image: docker.io/library/postgres:${POSTGRES_VERSION:-17}-alpine
-    container_name: ${CONTAINER_NAME:-template-mvp}-backend_db
+  mongo:
+    image: *mongo_image
+    container_name: ${CONTAINER_NAME:-template}_db_MONGO-v${MONGO_VERSION:-7.0}
+    working_dir: /workspaces/app
 
     environment:
-      POSTGRES_USER: ${DB_USER:-backend_postgres_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-backend_postgres_password}
-      POSTGRES_DB: ${DB_NAME:-backend_postgres_db}
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER:-backend_mongo_user}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-backend_mongo_password}
+      MONGO_INITDB_DATABASE: ${DB_NAME:-backend_mongo_db}
 
     ports:
-      - "${DB_HOST_PORT:-5433}:5432"
+      - "${DB_HOST_PORT:-27018}:27017"
 
     volumes:
-      - pgdata:/var/lib/postgresql/data:Z
+      - mongodata:/data/db
+
+    tmpfs:
+      - /data/db/.vscode-server
 
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "pg_isready -U ${DB_USER:-backend_postgres_user} -d ${DB_NAME:-backend_postgres_db}"
+          "mongosh --quiet --username $$MONGO_INITDB_ROOT_USERNAME --password $$MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval 'db.runCommand({ ping: 1 }).ok' | grep 1 >/dev/null"
         ]
       interval: 5s
       timeout: 3s
-      retries: 10
+      retries: 30
+
+  mongo-tools:
+    profiles: ["tools"]
+    image: *mongo_image
+    container_name: ${CONTAINER_NAME:-template}_tools_MONGO-v${MONGO_VERSION:-7.0}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    entrypoint: ["bash", "-lc", "sleep infinity"]
 
 volumes:
-  pgdata:
+  mongodata:

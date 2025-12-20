@@ -1,16 +1,16 @@
 #!/bin/bash
 # ---------------------------------------------------------
-# Pull & Start FULL Dev Stack (Backend + Frontend + Postgres)
+# Pull & Start FULL Dev Stack (Backend + Frontend + MongoDB)
 #
 # Usage:
-#   ./pull-start-full-dev.sh [api_port] [frontend_port] [dotnet_version] [node_version] [angular_version] [postgres_version]
+#   ./pull-start-full-dev.sh [api_port] [frontend_port] [dotnet_version] [node_version] [angular_version] [mongo_version]
 #
 # Example:
-#   ./pull-start-full-dev.sh 5002 4202 10 24 21 17
+#   ./pull-start-full-dev.sh 5002 4202 10.0 24 21 7.0
 #
 # Starts:
 #   - dev-full (dotnet + node + angular)
-#   - postgres db (version specified)
+#   - mongo db (version specified)
 # ---------------------------------------------------------
 
 set -euo pipefail
@@ -18,15 +18,15 @@ cd "$(dirname "$0")"
 
 API_PORT="${1:-5002}"
 FRONTEND_PORT="${2:-4202}"
-DOTNET_VERSION="${3:-10}"
+DOTNET_VERSION="${3:-10.0}"
 NODE_VERSION="${4:-24}"
 ANGULAR_VERSION="${5:-21}"
-POSTGRES_VERSION="${6:-17}"
+MONGO_VERSION="${6:-7.0}"
 
 IMAGE="ghcr.io/hallboard-team/fullstack-dev:dotnet${DOTNET_VERSION}-node${NODE_VERSION}-ng${ANGULAR_VERSION}"
-CONTAINER_NAME="template-mvp_dev-full_d${DOTNET_VERSION}_n${NODE_VERSION}_a${ANGULAR_VERSION}_pg${POSTGRES_VERSION}_p${API_PORT}-${FRONTEND_PORT}_dev"
+CONTAINER_NAME="template_dev-full_d${DOTNET_VERSION}_n${NODE_VERSION}_a${ANGULAR_VERSION}_mg${MONGO_VERSION}_p${API_PORT}-${FRONTEND_PORT}_dev"
 
-COMPOSE_FILE="docker-compose.yml"
+COMPOSE_FILE="docker-compose.full.yml"
 
 echo "=========================================="
 echo " FULL DEV STACK STARTER"
@@ -36,7 +36,7 @@ echo " FRONTEND PORT:     $FRONTEND_PORT"
 echo " DOTNET VERSION:    $DOTNET_VERSION"
 echo " NODE VERSION:      $NODE_VERSION"
 echo " ANGULAR VERSION:   $ANGULAR_VERSION"
-echo " POSTGRES VERSION:  $POSTGRES_VERSION"
+echo " MONGO VERSION:     $MONGO_VERSION"
 echo " IMAGE:             $IMAGE"
 echo "=========================================="
 
@@ -69,7 +69,7 @@ if CONTAINER_NAME="$CONTAINER_NAME" \
    DOTNET_VERSION="$DOTNET_VERSION" \
    NODE_VERSION="$NODE_VERSION" \
    ANGULAR_VERSION="$ANGULAR_VERSION" \
-   POSTGRES_VERSION="$POSTGRES_VERSION" \
+   MONGO_VERSION="$MONGO_VERSION" \
    API_PORT="$API_PORT" \
    FRONTEND_PORT="$FRONTEND_PORT" \
    docker-compose -f "$COMPOSE_FILE" up -d; then

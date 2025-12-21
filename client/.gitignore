@@ -1,70 +1,43 @@
-########################################
-# Editor / IDE (user-specific)
-########################################
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-*.swp
-*.suo
-*.user
-*.userosscache
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
-# Rider junk
-.idea
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
-# Optional: uncomment if you DON'T want team-wide VS Code configs
-# .vscode/
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-########################################
-# Node / Angular build outputs
-########################################
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
-dist/
-build/
-out/
-tmp/
-temp/
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
 
-########################################
-# Dependencies (always ignore)
-########################################
-
-node_modules/
-.pnpm-store/
-
-########################################
-# Logs
-########################################
-
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-########################################
-# Angular environments (if dynamic)
-########################################
-
-# You can choose whether to track these — template repos usually DO track.
-# adjust as needed:
-# environment*.ts
-
-########################################
-# Dev Containers + Docker (keep infra files)
-########################################
-
-# Do NOT ignore these:
-# .devcontainer/
-# docker/
-# docker-compose.devcontainer.yml
-# docker-compose.frontend.yml
-# pull-start-dev.sh
-
-# Ignore VS Code server artifacts (inside container)
-.vscode-server/
-
-########################################
-# OS junk
-########################################
-
+# System files
 .DS_Store
 Thumbs.db

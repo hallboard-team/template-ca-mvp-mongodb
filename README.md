@@ -58,7 +58,7 @@ You can tweak the environment through compose variables or script arguments:
 | `NODE_VERSION` | `24` | Maps to the `node` segment of the image tag. |
 | `ANGULAR_VERSION` | `21` | Maps to the `ng` segment of the image tag. |
 | `MONGO_VERSION` | `7.0` | Chooses the backing MongoDB version. |
-| `CONTAINER_NAME` | `template` | Prefix for running containers and volumes. |
+| `COMPOSE_PROJECT_NAME` | `template` | Prefix for running containers, networks, and volumes. |
 | `API_PORT` | `5002` | Host port forwarded to the .NET API. |
 | `FRONTEND_PORT` | `4202` | Host port forwarded to the Angular dev server. |
 | `DB_HOST_PORT` | `27018` | Host port forwarded to MongoDB. |
@@ -68,7 +68,7 @@ You can tweak the environment through compose variables or script arguments:
 Override any variable via `.env`, exported environment variables, or by editing `.devcontainer/docker/docker-compose.full.yml`.
 
 ## Database Access
-MongoDB data persists in the `mongodata` Docker volume declared in the compose file. Connect with any client using the connection string printed inside the container (identical to `ConnectionStrings__Default` in the compose file). Remove the volume (`docker volume rm template-ca-mvp-mongodb_mongodata`) if you want a clean slate.
+MongoDB data persists in the `mongodata` Docker volume declared in the compose file. Connect with any client using the connection string printed inside the container (identical to `ConnectionStrings__Default` in the compose file). Remove the volume (`docker volume rm <project>_mongodata`) if you want a clean slate.
 
 ## Next Steps
 - Drop your existing services into `backend/src` and `frontend/`.

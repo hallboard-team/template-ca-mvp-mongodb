@@ -1,5 +1,5 @@
 {
-  "name": "dev-${localWorkspaceFolderBasename}-full",
+  "name": "dev-${localWorkspaceFolderBasename}_full-mongo",
   "dockerComposeFile": "./docker/docker-compose.full.yml",
   "service": "dev-full",
   "workspaceFolder": "/workspaces/app",

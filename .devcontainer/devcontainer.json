@@ -3,8 +3,7 @@
   "dockerComposeFile": "./docker/docker-compose.fullstack.yml",
   "service": "dev-fullstack",
   "runServices": [
-    "dev-fullstack",
-    "mongo"
+    "dev-fullstack"
   ],
   "workspaceFolder": "/workspaces/app",
   "shutdownAction": "stopCompose",

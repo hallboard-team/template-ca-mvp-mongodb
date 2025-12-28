@@ -18,15 +18,6 @@ if (app.Environment.IsDevelopment())
     );
 }
 
-app.MapPost("/api/echo", (EchoRequest request) =>
-{
-    
-
-    return Results.Ok($"Hello, {request.Name}");
-});
-
 app.UseHttpsRedirection();
 
 app.Run();
-
-record EchoRequest(string Name);

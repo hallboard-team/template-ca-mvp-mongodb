@@ -1,9 +1,9 @@
 {
-  "name": "dev-${localWorkspaceFolderBasename}_full-mongo",
-  "dockerComposeFile": "./docker/docker-compose.full.yml",
-  "service": "dev-api",
+  "name": "dev-${localWorkspaceFolderBasename}_fullstack-mongo",
+  "dockerComposeFile": "./docker/docker-compose.fullstack.yml",
+  "service": "dev-fullstack",
   "runServices": [
-    "dev-api",
+    "dev-fullstack",
     "mongo"
   ],
   "workspaceFolder": "/workspaces/app",

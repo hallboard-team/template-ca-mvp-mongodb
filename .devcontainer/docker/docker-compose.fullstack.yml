@@ -3,7 +3,7 @@ version: "3.9"
 x-mongo-image: &mongo_image "${MONGO_IMAGE:-ghcr.io/hallboard-team/tools:mongo-${MONGO_VERSION:-7.0}}"
 
 services:
-  dev-api:
+  dev-fullstack:
     image: ghcr.io/hallboard-team/fullstack-dev:dotnet${DOTNET_VERSION:-10.0}-node${NODE_VERSION:-24}-ng${ANGULAR_VERSION:-21}
     container_name: ${COMPOSE_PROJECT_NAME:-template}_dev-full
 

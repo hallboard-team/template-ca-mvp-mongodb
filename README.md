@@ -26,7 +26,7 @@ This template provides a batteries-included Clean Architecture setup for buildin
 The container exposes:
 - API at http://localhost:5002 (override with `API_PORT`)
 - Angular dev server at http://localhost:4202 (`FRONTEND_PORT`)
-- MongoDB at localhost:27018 (`DB_HOST_PORT`)
+- MongoDB at localhost:28000 (`MONGO_PORT`)
 
 Inside the container you can run normal workflows:
 ```bash
@@ -61,14 +61,15 @@ You can tweak the environment through compose variables or script arguments:
 | `COMPOSE_PROJECT_NAME` | `template` | Prefix for running containers, networks, and volumes. |
 | `API_PORT` | `5002` | Host port forwarded to the .NET API. |
 | `FRONTEND_PORT` | `4202` | Host port forwarded to the Angular dev server. |
-| `DB_HOST_PORT` | `27018` | Host port forwarded to MongoDB. |
+| `MONGO_PORT` | `28000` | Host port forwarded to MongoDB. |
 | `DB_NAME` | `backend_mongo_db` | Database name set on the MongoDB container. |
 | `DB_USER` / `DB_PASSWORD` | `backend_mongo_user` / `backend_mongo_password` | Credentials for the default connection string. |
 
 Override any variable via `.env`, exported environment variables, or by editing `.devcontainer/docker/docker-compose.full.yml`.
 
 ## Database Access
-MongoDB data persists in the `mongodata` Docker volume declared in the compose file. Connect with any client using the connection string printed inside the container (identical to `ConnectionStrings__Default` in the compose file). Remove the volume (`docker volume rm <project>_mongodata`) if you want a clean slate.
+MongoDB data persists in the `mongodata` Docker volume declared in the compose file. Connect with any client using the connection string printed inside the container (identical to `MongoDb__ConnectionString` in the compose file). Remove the volume (`docker volume rm <project>_mongodata`) if you want a clean slate.
+This project expects the API to run inside the dev container, so MongoDB settings are supplied via compose environment variables rather than `appsettings*.json`.
 
 ## Next Steps
 - Drop your existing services into `backend/src` and `frontend/`.

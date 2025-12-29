@@ -25,7 +25,8 @@ This template provides a batteries-included Clean Architecture setup for buildin
 
 The container exposes:
 - API at http://localhost:5002 (override with `API_PORT`)
-- Angular dev server at http://localhost:4202 (`FRONTEND_PORT`)
+- Angular landing dev server at http://localhost:4202 (`LANDING_PORT`)
+- Angular dashboard dev server at http://localhost:4203 (`DASHBOARD_PORT`)
 - MongoDB at localhost:28000 (`MONGO_PORT`)
 
 Inside the container you can run normal workflows:
@@ -60,7 +61,8 @@ You can tweak the environment through compose variables or script arguments:
 | `MONGO_VERSION` | `7.0` | Chooses the backing MongoDB version. |
 | `COMPOSE_PROJECT_NAME` | `template` | Prefix for running containers, networks, and volumes. |
 | `API_PORT` | `5002` | Host port forwarded to the .NET API. |
-| `FRONTEND_PORT` | `4202` | Host port forwarded to the Angular dev server. |
+| `LANDING_PORT` | `4202` | Host port forwarded to the Angular landing dev server. |
+| `DASHBOARD_PORT` | `4203` | Host port forwarded to the Angular dashboard dev server. |
 | `MONGO_PORT` | `28000` | Host port forwarded to MongoDB. |
 | `DB_NAME` | `backend_mongo_db` | Database name set on the MongoDB container. |
 | `DB_USER` / `DB_PASSWORD` | `backend_mongo_user` / `backend_mongo_password` | Credentials for the default connection string. |

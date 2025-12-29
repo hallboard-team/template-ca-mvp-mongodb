@@ -29,7 +29,8 @@ services:
 
     ports:
       - "${API_PORT:-5002}:5000"        # .NET API
-      - "${FRONTEND_PORT:-4202}:4200"   # Angular dev server
+      - "${LANDING_PORT:-4202}:4200"    # Angular landing dev server
+      - "${DASHBOARD_PORT:-4203}:4201"  # Angular dashboard dev server
     networks:
       - shared-mongo-net
 

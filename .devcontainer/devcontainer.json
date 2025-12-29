@@ -2,6 +2,7 @@
   "name": "dev-${localWorkspaceFolderBasename}_fullstack-mongo",
   "dockerComposeFile": "./docker/docker-compose.fullstack.yml",
   "service": "dev-fullstack",
+  "initializeCommand": "./.devcontainer/docker/run-shared-mongo.sh",
   "runServices": [
     "dev-fullstack"
   ],

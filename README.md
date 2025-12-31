@@ -59,12 +59,11 @@ You can tweak the environment through compose variables or script arguments:
 | `NODE_VERSION` | `24` | Maps to the `node` segment of the image tag. |
 | `ANGULAR_VERSION` | `21` | Maps to the `ng` segment of the image tag. |
 | `MONGO_VERSION` | `7.0` | Chooses the backing MongoDB version. |
-| `COMPOSE_PROJECT_NAME` | `template` | Prefix for running containers, networks, and volumes. |
+| `COMPOSE_PROJECT_NAME` | `template` | Prefix for running containers, networks, volumes, and the MongoDB database name. |
 | `API_PORT` | `5002` | Host port forwarded to the .NET API. |
 | `LANDING_PORT` | `4202` | Host port forwarded to the Angular landing dev server. |
 | `DASHBOARD_PORT` | `4203` | Host port forwarded to the Angular dashboard dev server. |
 | `MONGO_PORT` | `28000` | Host port forwarded to MongoDB. |
-| `DB_NAME` | `backend_mongo_db` | Database name set on the MongoDB container. |
 | `DB_USER` / `DB_PASSWORD` | `backend_mongo_user` / `backend_mongo_password` | Credentials for the default connection string. |
 
 Override any variable via `.env`, exported environment variables, or by editing `.devcontainer/docker/docker-compose.full.yml`.

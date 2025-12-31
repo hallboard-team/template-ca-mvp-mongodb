@@ -24,8 +24,8 @@ services:
       DB_USER: "${DB_USER:-backend_mongo_user}"
       DB_PASSWORD: "${DB_PASSWORD:-backend_mongo_password}"
 
-      MongoDb__ConnectionString: "mongodb://${DB_USER:-backend_mongo_user}:${DB_PASSWORD:-backend_mongo_password}@mongo:27017/${DB_NAME:-backend_mongo_db}?authSource=admin&retryWrites=true&replicaSet=rs0"
-      MongoDb__DatabaseName: "${DB_NAME:-backend_mongo_db}"
+      MongoDb__ConnectionString: "mongodb://${DB_USER:-backend_mongo_user}:${DB_PASSWORD:-backend_mongo_password}@mongo:27017/${COMPOSE_PROJECT_NAME:-template}?authSource=admin&retryWrites=true&replicaSet=rs0"
+      MongoDb__DatabaseName: "${COMPOSE_PROJECT_NAME:-template}"
 
     ports:
       - "${API_PORT:-5002}:5000"        # .NET API
